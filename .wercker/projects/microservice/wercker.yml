@@ -3,6 +3,10 @@ dev:
     id: golang:1.7.3-alpine
     cmd: /bin/sh
   steps:
+    - script:
+        code: |
+          echo "This is dev ..."
+
     - internal/watch:
         code: |
           go build -o microservice ./...
@@ -14,6 +18,10 @@ build:
     id: golang:1.7.3-alpine
     cmd: /bin/sh
   steps:
+    - script:
+        code: |
+          echo "This is build ..."
+
     - wercker/golint
     - script:
         name: go build
@@ -31,13 +39,13 @@ deploy:
     cmd: /bin/sh
   steps:
     - script:
-        name: env
-        code: env
+        code: |
+          echo "This is deploy ..."
 
     - internal/docker-push:
         author: "Joe Tang"
-        username: $DOCKER_USERNAME
-        password: $DOCKER_PASSWORD
+        username: tangjoe
+        password: passw0rd
         tag: latest
         repository: tangjoe/microservice
         registry: https://registry.hub.docker.com
