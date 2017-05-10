@@ -1,0 +1,25 @@
+dev:
+  box:
+    id: golang:1.7.3-alpine
+    cmd: /bin/sh
+  steps:
+    - internal/watch:
+        code: |
+          go build -o microservice ./...
+          ./microservice
+        reload: true
+build:
+  box:
+    id: golang:1.7.3-alpine
+    cmd: /bin/sh
+  steps:
+    - wercker/golint
+    - script:
+        name: go build
+        code: |
+          go build -o microservice ./...
+
+    - scriopt:
+        name: copy binary
+        code: |
+          cp microservice "$WERCKER_OUTPUT_DIR"
