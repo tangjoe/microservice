@@ -8,6 +8,7 @@ dev:
           go build -o microservice ./...
           ./microservice
         reload: true
+
 build:
   box:
     id: golang:1.7.3-alpine
@@ -23,3 +24,20 @@ build:
         name: copy binary
         code: |
           cp microservice "$WERCKER_OUTPUT_DIR"
+
+deploy:
+  box:
+    id: golang:1.7.3-alpine
+    cmd: /bin/sh
+  steps:
+    - script:
+        name: env
+        code: env
+
+    - internal/docker-push:
+        author: "Joe Tang"
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
+        tag: latest
+        repository: tangjoe/microservice
+        registry: https://registry.hub.docker.com
