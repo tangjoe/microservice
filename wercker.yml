@@ -44,8 +44,8 @@ deploy:
 
     - internal/docker-push:
         author: "Joe Tang"
-        username: tangjoe
-        password: passw0rd
+        username: $DOCKER_USERNAME
+        password: $DOCKER_PASSWORD
         tag: latest
         repository: tangjoe/microservice
         registry: https://registry.hub.docker.com
