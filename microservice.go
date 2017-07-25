@@ -23,7 +23,7 @@ func main() {
 }
 
 func hello(w http.ResponseWriter, r *http.Request) {
-   m := Hello {"Hello Joe and Priscilla ... Go."}
+   m := Hello {"Hello Joe and Priscilla are very happy ... Go."}
    b, err := json.Marshal(m)
 
    if err != nil {
